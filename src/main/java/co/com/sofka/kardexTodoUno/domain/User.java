@@ -1,20 +1,29 @@
 package co.com.sofka.kardexTodoUno.domain;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class User {
-	private int Id;
-	private int Nit;
+	
+	@XmlElement(name = "_id")
+	private String Id;
+	private String Nit;
 	private String Name;
 	
-	public int getId() {
+	public String getId() {
 		return Id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		Id = id;
 	}
-	public int getNit() {
+	public String getNit() {
 		return Nit;
 	}
-	public void setNit(int nit) {
+	public void setNit(String nit) {
 		Nit = nit;
 	}
 	public String getName() {

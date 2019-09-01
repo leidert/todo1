@@ -1,16 +1,33 @@
 package co.com.sofka.kardexTodoUno.domain;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class kardex {
 	
+	@XmlElement(name = "_id")
+	private String id;
 	private String Date;
 	private String Detail;
-	private int Value;
-	private int InputAmount;
-	private int TotalEntry;
-	private int AmountOutput;
-	private int TotalOutput;
-	private int BalanceAmount;
-	private int totalBalance;
+	private String Value;
+	private String InputAmount;
+	private String TotalEntry;
+	private String AmountOutput;
+	private String TotalOutput;
+	private String BalanceAmount;
+	private String totalBalance;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	public String getDate() {
 		return Date;
 	}
@@ -23,46 +40,46 @@ public class kardex {
 	public void setDetail(String detail) {
 		Detail = detail;
 	}
-	public int getValue() {
+	public String getValue() {
 		return Value;
 	}
-	public void setValue(int value) {
+	public void setValue(String value) {
 		Value = value;
 	}
-	public int getInputAmount() {
+	public String getInputAmount() {
 		return InputAmount;
 	}
-	public void setInputAmount(int inputAmount) {
+	public void setInputAmount(String inputAmount) {
 		InputAmount = inputAmount;
 	}
-	public int getTotalEntry() {
+	public String getTotalEntry() {
 		return TotalEntry;
 	}
-	public void setTotalEntry(int totalEntry) {
+	public void setTotalEntry(String totalEntry) {
 		TotalEntry = totalEntry;
 	}
-	public int getAmountOutput() {
+	public String getAmountOutput() {
 		return AmountOutput;
 	}
-	public void setAmountOutput(int amountOutput) {
+	public void setAmountOutput(String amountOutput) {
 		AmountOutput = amountOutput;
 	}
-	public int getTotalOutput() {
+	public String getTotalOutput() {
 		return TotalOutput;
 	}
-	public void setTotalOutput(int totalOutput) {
+	public void setTotalOutput(String totalOutput) {
 		TotalOutput = totalOutput;
 	}
-	public int getBalanceAmount() {
+	public String getBalanceAmount() {
 		return BalanceAmount;
 	}
-	public void setBalanceAmount(int balanceAmount) {
+	public void setBalanceAmount(String balanceAmount) {
 		BalanceAmount = balanceAmount;
 	}
-	public int getTotalBalance() {
+	public String getTotalBalance() {
 		return totalBalance;
 	}
-	public void setTotalBalance(int totalBalance) {
+	public void setTotalBalance(String totalBalance) {
 		this.totalBalance = totalBalance;
 	}
 	@Override

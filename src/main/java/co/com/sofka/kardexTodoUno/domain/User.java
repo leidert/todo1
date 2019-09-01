@@ -10,15 +10,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class User {
 	
 	@XmlElement(name = "_id")
-	private String Id;
+	private String id;
 	private String Nit;
 	private String Name;
 	
 	public String getId() {
-		return Id;
+		return id;
 	}
 	public void setId(String id) {
-		Id = id;
+		this.id = id;
 	}
 	public String getNit() {
 		return Nit;
@@ -35,7 +35,7 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return "User [Id=" + Id + ", Nit=" + Nit + ", Name=" + Name + "]";
+		return "User [Id=" + id + ", Nit=" + Nit + ", Name=" + Name + "]";
 	}
 	
 	

@@ -1,9 +1,18 @@
 package co.com.sofka.kardexTodoUno.domain;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Product {
-	private int id;
+	
+	@XmlElement(name = "_id")
+	private String id;
 	private String detail;
-	private int stock;
+	
 	
 	public String getDetail() {
 		return detail;
@@ -11,21 +20,16 @@ public class Product {
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
-	public int getStock() {
-		return stock;
-	}
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
-	public int getId() {
+	
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", detail=" + detail + ", stock=" + stock + "]";
+		return "Product [id=" + id + ", detail=" + detail + "]";
 	}
 	
 	

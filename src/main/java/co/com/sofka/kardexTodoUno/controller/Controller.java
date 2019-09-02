@@ -12,6 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sun.jersey.api.core.InjectParam;
 
@@ -24,8 +25,13 @@ import co.com.sofka.kardexTodoUno.infrastructure.Service;
 @Path("/kardex")
 public class Controller {
 	
-	@InjectParam
+	@Autowired
 	Service service;
+
+	@Autowired
+	public Controller(@InjectParam Service service) {
+		this.service = service;
+	}
 
 	@GET
 	@Path("/product")
@@ -96,4 +102,27 @@ public class Controller {
 	public List<kardex> GetKardex() {
 		return this.service.getAllKardex();
 	}
+	
+	@GET
+	@Path("/findbynamekardex/{name}")
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_JSON})
+	public kardex findByNameKardex(@PathParam("name") String name) {
+		return this.service.findByNameKardex(name);
+	}
+	
+	@POST
+	@Path("/inputkardex")
+	@Consumes({MediaType.APPLICATION_JSON})
+	@Produces({MediaType.APPLICATION_JSON})
+	public void kardexEntry(kardex kardex) {
+		  this.service.createKardex(kardex);
+	}
+	
+	@PUT
+    @Path("/updactkardex/{name}")
+	@Consumes({MediaType.APPLICATION_JSON})
+    public void updateKardex(@PathParam("name") String name, kardex kardex) {
+        this.service.updateKardex(name, kardex);
+    }
 }

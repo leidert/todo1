@@ -19,7 +19,7 @@ public class kardex {
 	private String AmountOutput;
 	private String TotalOutput;
 	private String BalanceAmount;
-	private String totalBalance;
+	private String TotalBalance;
 	
 	public String getId() {
 		return id;
@@ -77,16 +77,16 @@ public class kardex {
 		BalanceAmount = balanceAmount;
 	}
 	public String getTotalBalance() {
-		return totalBalance;
+		return TotalBalance;
 	}
 	public void setTotalBalance(String totalBalance) {
-		this.totalBalance = totalBalance;
+		this.TotalBalance = totalBalance;
 	}
 	@Override
 	public String toString() {
 		return "kardex [Date=" + Date + ", Detail=" + Detail + ", Value=" + Value + ", InputAmount=" + InputAmount
 				+ ", TotalEntry=" + TotalEntry + ", AmountOutput=" + AmountOutput + ", TotalOutput=" + TotalOutput
-				+ ", BalanceAmount=" + BalanceAmount + ", totalBalance=" + totalBalance + "]";
+				+ ", BalanceAmount=" + BalanceAmount + ", totalBalance=" + TotalBalance + "]";
 	}
 
 	

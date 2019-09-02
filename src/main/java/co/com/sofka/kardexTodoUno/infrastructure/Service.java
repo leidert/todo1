@@ -46,9 +46,6 @@ public class Service implements Repository {
         this.collectionKardex = this.db.getCollection(COLL_NAME_KARDEX);
     }
     
-	public String getAllUser() {
-		return "mostrando User desde service";
-	}
 	
 	public List<User> findAll() {
 		
@@ -96,6 +93,7 @@ public class Service implements Repository {
 		
 		return user;
 	}
+	
 
 	public List<Product> getAllproduct() {
 		
@@ -165,6 +163,62 @@ public class Service implements Repository {
 			kardexArray.add(kardex);
 		}
 		return  kardexArray;
+	}
+	
+
+	public void createKardex(kardex kardex) {
+		Document doc = new Document();
+		ResultadoKardex resultadoKardex = new ResultadoKardex();
+		
+		Random ran = new Random();
+		doc.append("id", String.valueOf(ran.nextInt(100000000)));
+		doc.append("AmountOutput", kardex.getAmountOutput());
+		doc.append("TotalOutput", kardex.getTotalOutput());
+		doc.append("InputAmount", kardex.getInputAmount());
+		doc.append("BalanceAmoun", kardex.getBalanceAmount());
+		doc.append("TotalEntry", resultadoKardex.kardexTotalTicket(kardex));
+		doc.append("Detail", kardex.getDetail());
+		doc.append("Value", kardex.getValue());
+		doc.append("TotalBalance", kardex.getTotalBalance());
+		doc.append("Date", kardex.getDate());
+		this.collectionKardex.insertOne(doc);
+			
+	}
+
+	public kardex findByNameKardex(String name) {
+		kardex kardex = new kardex();
+		Document kardexBson = this.collectionKardex.find(eq("Detail", name)).first();
+		
+		kardex.setId(kardexBson.getString("id"));
+		kardex.setAmountOutput(kardexBson.getString("AmountOutput"));
+		kardex.setTotalOutput(kardexBson.getString("TotalOutput"));
+		kardex.setInputAmount(kardexBson.getString("InputAmount"));
+		kardex.setBalanceAmount(kardexBson.getString("BalanceAmount"));
+		kardex.setTotalEntry(kardexBson.getString("TotalEntry"));
+		kardex.setDetail(kardexBson.getString("Detail"));
+		kardex.setValue(kardexBson.getString("Value"));
+		kardex.setTotalBalance(kardexBson.getString("TotalBalance"));
+		kardex.setDate(kardexBson.getString("Date"));
+		
+		return kardex;
+		
+	}
+
+	public Document updateKardex(String Detail, kardex kardex) {
+		ResultadoKardex resultadoKardex = new ResultadoKardex();
+		Document doc = new Document();
+		
+		doc.append("AmountOutput", kardex.getAmountOutput());
+		doc.append("TotalOutput", kardex.getTotalOutput());
+		doc.append("InputAmount", kardex.getInputAmount());
+		doc.append("BalanceAmoun", kardex.getBalanceAmount());
+		doc.append("TotalEntry", resultadoKardex.kardexTotalTicket(kardex));
+		doc.append("Detail", kardex.getDetail());
+		doc.append("Value", kardex.getValue());
+		doc.append("TotalBalance", kardex.getTotalBalance());
+		doc.append("Date", kardex.getDate());
+		Document result = this.collectionKardex.findOneAndUpdate(eq("Detail", Detail), new Document("$set", doc));
+		return result;
 	}
 	
 }

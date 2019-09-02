@@ -2,6 +2,8 @@ package co.com.sofka.kardexTodoUno.domain;
 
 import java.util.List;
 
+import org.bson.Document;
+
 
 public interface Repository   {
 	
@@ -22,6 +24,12 @@ public interface Repository   {
 	public Product findByIdProduct(String id);
 	
 	public List<kardex> getAllKardex();
+	
+	public void createKardex(kardex kardex);
+	
+	public kardex findByNameKardex(String name);
+	
+	public Document updateKardex (String id, kardex kardex);
 	
 	
 	

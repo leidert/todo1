@@ -25,5 +25,15 @@
 <url-pattern>/service/*</url-pattern>
 </servlet-mapping>
 
+<filter>
+    <filter-name>CorsFilter</filter-name>
+    <filter-class>co.com.sofka.kardexTodoUno.infrastructure.CORSFilter</filter-class>
+</filter>
+ 
+<filter-mapping>
+    <filter-name>CorsFilter</filter-name>
+    <url-pattern>/service/*</url-pattern>
+</filter-mapping>
+
 </web-app>
 

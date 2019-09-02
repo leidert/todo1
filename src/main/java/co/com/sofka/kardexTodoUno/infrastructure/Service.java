@@ -1,5 +1,6 @@
 package co.com.sofka.kardexTodoUno.infrastructure;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,6 +19,7 @@ import co.com.sofka.kardexTodoUno.domain.Product;
 import co.com.sofka.kardexTodoUno.domain.Repository;
 import co.com.sofka.kardexTodoUno.domain.User;
 import co.com.sofka.kardexTodoUno.domain.kardex;
+import java.util.Date;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -47,15 +49,14 @@ public class Service implements Repository {
     }
     
 	
-	public List<User> findAll() {
+	public List<User> findAllUser() {
 		
 		List<User> userArray = new ArrayList<User>();
 		MongoCursor<Document> cursor = this.collectionUser.find().iterator();
 		
 		while (cursor.hasNext()) {
 			Document UserBson = cursor.next();
-			
-			//String objectId = UserBson.getObjectId("_id").toString();
+
 			User user = new User();
 			
 			user.setId(UserBson.getString("id"));
@@ -104,9 +105,11 @@ public class Service implements Repository {
 			
 			Document ProductBson = cursor.next();
 			Product product = new Product();
-		
+			
 			product.setId(ProductBson.getString("id"));
 			product.setDetail(ProductBson.getString("detail"));
+			product.setStok(ProductBson.getString("stock"));
+			product.setPrice(ProductBson.getString("price"));
 			
 			productArray.add(product);
 		}
@@ -118,24 +121,34 @@ public class Service implements Repository {
 		Random ran = new Random();
 		doc.append("id", String.valueOf(ran.nextInt(100000000)));
 		doc.append("detail", product.getDetail());
+		doc.append("stock", product.getStok());
+		doc.append("price", product.getPrice());
 		
 		this.collectionProduct.insertOne(doc);
-		
 	}
 
 	public void updateProduct(String id, Product product) {
 		Document doc = new Document();
-		doc.append("id", product.getId()).append("detail", product.getDetail());
+		doc.append("id", product.getId()).append("detail", product.getDetail()).append("stock", product.getStok()).append("price", product.getPrice());
+		
 		this.collectionProduct.findOneAndUpdate(eq("id", id), new Document("$set", doc));
 	}
 
 
 	public Product findByIdProduct(String id) {
+	
 		Product product = new Product();
-		Document ProductBson = this.collectionProduct.find(eq("id", id)).first();
-		
-		product.setId(ProductBson.getString("id"));
-		product.setDetail(ProductBson.getString("detail"));
+		try {
+			Document ProductBson = this.collectionProduct.find(eq("id", id)).first();
+			String _id = ProductBson.getString("id");
+			String detail = ProductBson.getString("detail");
+			
+			product.setId(_id);
+			product.setDetail(detail);
+			
+		} catch (NullPointerException e) {
+			System.out.println("Caught Null Pointer Exception" + e);
+		}
 		
 		return product;
 	}
@@ -166,9 +179,14 @@ public class Service implements Repository {
 	}
 	
 
+	
 	public void createKardex(kardex kardex) {
 		Document doc = new Document();
 		ResultadoKardex resultadoKardex = new ResultadoKardex();
+		Date fecha = new Date();
+		
+		String strDateFormat = "hh: mm: ss a dd-MMM-aaaa";
+        SimpleDateFormat formaDate = new SimpleDateFormat(strDateFormat);
 		
 		Random ran = new Random();
 		doc.append("id", String.valueOf(ran.nextInt(100000000)));
@@ -180,28 +198,46 @@ public class Service implements Repository {
 		doc.append("Detail", kardex.getDetail());
 		doc.append("Value", kardex.getValue());
 		doc.append("TotalBalance", kardex.getTotalBalance());
-		doc.append("Date", kardex.getDate());
+		doc.append("Date",  formaDate.format(fecha));
 		this.collectionKardex.insertOne(doc);
 			
 	}
+	
+	public String EntryKardex(kardex kardex) {
+		
+		String resul = this.findByNameKardex(kardex.getDetail()).getDetail();
+		if (kardex.getDetail().equals(resul)) {
+			updateKardex(kardex.getDetail(), kardex);
+			return "update";
+		}else {
+			createKardex(kardex);
+			return "create";
+		}
+	}
+	
 
 	public kardex findByNameKardex(String name) {
 		kardex kardex = new kardex();
-		Document kardexBson = this.collectionKardex.find(eq("Detail", name)).first();
 		
-		kardex.setId(kardexBson.getString("id"));
-		kardex.setAmountOutput(kardexBson.getString("AmountOutput"));
-		kardex.setTotalOutput(kardexBson.getString("TotalOutput"));
-		kardex.setInputAmount(kardexBson.getString("InputAmount"));
-		kardex.setBalanceAmount(kardexBson.getString("BalanceAmount"));
-		kardex.setTotalEntry(kardexBson.getString("TotalEntry"));
-		kardex.setDetail(kardexBson.getString("Detail"));
-		kardex.setValue(kardexBson.getString("Value"));
-		kardex.setTotalBalance(kardexBson.getString("TotalBalance"));
-		kardex.setDate(kardexBson.getString("Date"));
+		try {
+			Document kardexBson = this.collectionKardex.find(eq("Detail", name)).first();
+			
+			kardex.setId(kardexBson.getString("id"));
+			kardex.setAmountOutput(kardexBson.getString("AmountOutput"));
+			kardex.setTotalOutput(kardexBson.getString("TotalOutput"));
+			kardex.setInputAmount(kardexBson.getString("InputAmount"));
+			kardex.setBalanceAmount(kardexBson.getString("BalanceAmount"));
+			kardex.setTotalEntry(kardexBson.getString("TotalEntry"));
+			kardex.setDetail(kardexBson.getString("Detail"));
+			kardex.setValue(kardexBson.getString("Value"));
+			kardex.setTotalBalance(kardexBson.getString("TotalBalance"));
+			kardex.setDate(kardexBson.getString("Date"));
+			
+		} catch (NullPointerException e) {
+			System.out.println("Caught Null Pointer Exception" + e);
+		}
 		
 		return kardex;
-		
 	}
 
 	public Document updateKardex(String Detail, kardex kardex) {
@@ -216,7 +252,7 @@ public class Service implements Repository {
 		doc.append("Detail", kardex.getDetail());
 		doc.append("Value", kardex.getValue());
 		doc.append("TotalBalance", kardex.getTotalBalance());
-		doc.append("Date", kardex.getDate());
+		//doc.append("Date", kardex.getDate());
 		Document result = this.collectionKardex.findOneAndUpdate(eq("Detail", Detail), new Document("$set", doc));
 		return result;
 	}

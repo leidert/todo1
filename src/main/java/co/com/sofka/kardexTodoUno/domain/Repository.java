@@ -7,7 +7,7 @@ import org.bson.Document;
 
 public interface Repository   {
 	
-	public  List<User> findAll();
+	public  List<User> findAllUser();
 	
 	public void CreateUser (User user);
 	

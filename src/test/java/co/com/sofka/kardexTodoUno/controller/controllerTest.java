@@ -87,7 +87,7 @@ public class controllerTest {
 	
 	@Test
 	public void GetUserTest() {
-		Mockito.when(service.findAll()).thenReturn(userArray);
+		Mockito.when(service.findAllUser()).thenReturn(userArray);
 		assertEquals(userArray, controller.GetUser());
 	}
 	

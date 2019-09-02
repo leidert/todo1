@@ -21,12 +21,15 @@ import co.com.sofka.kardexTodoUno.domain.User;
 import co.com.sofka.kardexTodoUno.domain.kardex;
 import co.com.sofka.kardexTodoUno.infrastructure.Service;
 
+
 @Stateless
 @Path("/kardex")
 public class Controller {
 	
 	@Autowired
 	Service service;
+	
+	
 
 	@Autowired
 	public Controller(@InjectParam Service service) {
@@ -92,7 +95,7 @@ public class Controller {
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
 	public List<User> GetUser() {
-		return this.service.findAll();
+		return this.service.findAllUser();
 	}
 	
 	@GET
@@ -115,8 +118,8 @@ public class Controller {
 	@Path("/inputkardex")
 	@Consumes({MediaType.APPLICATION_JSON})
 	@Produces({MediaType.APPLICATION_JSON})
-	public void kardexEntry(kardex kardex) {
-		  this.service.createKardex(kardex);
+	public String kardexEntry(kardex kardex) {
+		  return this.service.EntryKardex(kardex);
 	}
 	
 	@PUT
@@ -125,4 +128,6 @@ public class Controller {
     public void updateKardex(@PathParam("name") String name, kardex kardex) {
         this.service.updateKardex(name, kardex);
     }
+	
+
 }

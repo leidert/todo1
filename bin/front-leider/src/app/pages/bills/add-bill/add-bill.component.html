@@ -1,0 +1,104 @@
+<form nz-form [formGroup] = "formulario" (ngSubmit)="enviar(formulario.value)" >
+
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Nombre</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName = "name" placeholder="Nombre" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Lider</nz-form-label>
+        <nz-form-control>
+            <input nz-input formControlName = "companyL" placeholder="Lider empresa" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Telefono</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName = "telephone" placeholder="Telefono" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Direccion</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName = "address" placeholder="Direccion" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Ciudad</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName = "city" placeholder="Ciudad cliente" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Moneda</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName = "currency" placeholder="Moneda a pagar" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    </div>
+
+    <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Total a pagar</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName = "total" placeholder="Total a pagar" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+     <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Numero de horas</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName = "amountHoursWorkedS" placeholder="Cantidad de horas" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    </div>
+
+    <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Descuento</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName = "discountProduct" placeholder="Descuento" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-form-item>
+        <nz-form-label>Descripcion</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName = "description" placeholder="Descripcion" />
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    </div>
+
+  <div class="footer">
+            <button type="button" (click)="close()" class="ant-btn" style="margin-right: 8px;"><span>Cancel</span></button>
+            <button type="Submit" (click)="close()" class="ant-btn ant-btn-primary"><span>Submit</span></button>
+  </div>
+  </form>
+  
+

@@ -1,0 +1,95 @@
+<nz-layout>
+  <nz-header>
+    <div class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal" class="header-menu">
+      <li nz-menu-item nzSelected>nav 1</li>
+      <li nz-menu-item>nav 2</li>
+      <li nz-menu-item>nav 3</li>
+    </ul>
+  </nz-header>
+  <nz-layout>
+    <nz-sider nzWidth="200px" nzTheme="light">
+      <ul nz-menu nzMode="inline" class="sider-menu">
+        <li nz-submenu nzOpen nzIcon="user" nzTitle="subnav 1">
+          <ul>
+            <li nz-menu-item nzSelected>option1</li>
+            <li nz-menu-item>option2</li>
+            <li nz-menu-item>option3</li>
+            <li nz-menu-item>option4</li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="subnav 2" nzIcon="laptop">
+          <ul>
+            <li nz-menu-item>option5</li>
+            <li nz-menu-item>option6</li>
+            <li nz-menu-item>option7</li>
+            <li nz-menu-item>option8</li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="subnav 3" nzIcon="notification">
+          <ul>
+            <li nz-menu-item>option9</li>
+            <li nz-menu-item>option10</li>
+            <li nz-menu-item>option11</li>
+            <li nz-menu-item>option12</li>
+          </ul>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout class="inner-layout">
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+        <nz-breadcrumb-item>List</nz-breadcrumb-item>
+        <nz-breadcrumb-item>App</nz-breadcrumb-item>
+      </nz-breadcrumb>
+
+      <nz-content>
+          
+         <button nz-button nzType="primary" style="margin: 8px;"  (click)="open()">Create</button>
+        
+        <nz-table #nestedTable [nzData]="AllBill" [nzPageSize]="5"  >
+      <thead>
+        <tr>
+            <th>#</th>
+            <th>Cliente</th>
+            <th>Lider</th>
+            <th>Telefono</th>
+            <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bills  of nestedTable.data">
+
+          <td>{{bills.idBillClients}}</td>
+          <td>{{bills.nameClients}}</td>
+          <td>{{bills.companyLeaders}}</td>
+          <td>{{bills.telephoneClients}}</td>
+          <td>
+            <a><button nz-button [nzType]="'primary'" style="margin-right: 8px;" (click)="showModal(bills)"><span>Edit</span></button></a>
+            <a><button nz-button nzType="dashed" (click)="showDeleteConfirm(bills)">Delete</button></a>
+          </td>
+
+        </tr>
+      </tbody>
+    </nz-table>
+
+        <nz-drawer
+          [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom': '53px' }"
+          [nzMaskClosable]="false"
+          [nzWidth]="720"
+          [nzVisible]="visible"
+          nzTitle="Crear Factura"
+          (nzOnClose)="close()">
+          
+        <app-add-bill></app-add-bill>
+       </nz-drawer>
+       
+        <nz-modal  [(nzVisible)]="isVisible" nzTitle="Actualizar factura" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+
+                 <app-edit-bill [data]="DataUpdate" ></app-edit-bill>
+
+        </nz-modal>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>

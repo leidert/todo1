@@ -1,0 +1,107 @@
+<!-- <nz-modal  [(nzVisible)]="isVisible" nzTitle="Actualizar factura" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"> -->
+      <div>{{data.idBillClients}}</div>
+<div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Id</nz-form-label>
+          <nz-form-control>
+              <input nz-input type="text" [(ngModel)] = "data.idBillClients" placeholder="Nombre" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Nombre</nz-form-label>
+          <nz-form-control>
+              <input nz-input [(ngModel)] = "data.nameClients" placeholder="Nombre" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Lider</nz-form-label>
+          <nz-form-control>
+              <input nz-input [(ngModel)] = "data.companyLeaders" placeholder="Lider empresa" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Telefono</nz-form-label>
+          <nz-form-control>
+              <input nz-input [(ngModel)] = "data.telephoneClients" placeholder="Telefono" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Direccion</nz-form-label>
+          <nz-form-control>
+              <input nz-input [(ngModel)] = "data.addressClients" placeholder="Direccion" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Ciudad</nz-form-label>
+          <nz-form-control>
+              <input nz-input [(ngModel)] = "data.cityClients" placeholder="Ciudad cliente" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label>Moneda</nz-form-label>
+            <nz-form-control>
+                <input nz-input [(ngModel)] = "data.currencyToPays" placeholder="Moneda a pagar" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label>Total a pagar</nz-form-label>
+            <nz-form-control>
+                <input nz-input [(ngModel)] = "data.fullPayments" placeholder="Total a pagar" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Cantidad horas</nz-form-label>
+          <nz-form-control>
+              <input nz-input [(ngModel)] = "data.amountHourWorked" placeholder="Cantidad de horas" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label>Descuento</nz-form-label>
+          <nz-form-control>
+              <input nz-input [(ngModel)] = "data.discounts" placeholder="Descuento" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="24">
+        <nz-form-item>
+          <nz-form-label>Descripcion</nz-form-label>
+          <nz-form-control>
+              <input nz-input [(ngModel)] = "data.descriptionProducts" placeholder="Descripcion" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+<!-- </nz-modal> -->

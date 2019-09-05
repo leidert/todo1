@@ -98,7 +98,6 @@ public class Service implements Repository {
 		return user;
 	}
 	
-
 	public List<Product> getAllproduct() {
 		
 		List<Product> productArray = new ArrayList<Product>();
@@ -120,17 +119,17 @@ public class Service implements Repository {
 	}
 	
 	public String EntryProduct(Product product) {
-			
-			Product resul = this.findByIdProduct(product.getDetail());
-					
-		if (product.getDetail().equals(resul.getDetail())) {
-			increaseProduct( resul, product);
-		    return "update";
-		}else {
-//				//createProduct(product);
-				return "create";
+		Product resul = this.findByIdProduct(product.getDetail());
 				
-			}
+				if (product.getDetail().equals(resul.getDetail())) {
+					increaseProduct( resul, product);
+					createKardexProducto(product);
+				        return "update";
+				}else {
+						createProduct(product);
+						createKardexProducto(product);
+						return product.getId();	
+					}
 		}
 	
 	public void increaseProduct(Product resul, Product product) {
@@ -144,10 +143,10 @@ public class Service implements Repository {
 		doc.append("stock", stock);
 		
 		this.collectionProduct.findOneAndUpdate(eq("id", resul.getId()), new Document("$set", doc));
-		
 	}
 	
 	public void createProduct(Product product) {
+		
 		Document doc = new Document();
 		Random ran = new Random();
 		doc.append("id", String.valueOf(ran.nextInt(100000000)));
@@ -156,6 +155,7 @@ public class Service implements Repository {
 		doc.append("price", product.getPrice());
 		
 		this.collectionProduct.insertOne(doc);
+		
 	}
 
 	public void updateProduct(String id, Product product) {
@@ -169,7 +169,7 @@ public class Service implements Repository {
 	}
 
 
-	public Product findByIdProduct(String name) {
+	public Product findByIdProduct(String name) throws NullPointerException  {
 	
 		Product product = new Product();
 		try {
@@ -220,6 +220,28 @@ public class Service implements Repository {
 		return  kardexArray;
 	}
 	
+	public void createKardexProducto(Product product) {
+		Document doc = new Document();
+		ResultOperactionService resultadoKardex = new ResultOperactionService();
+		Date fecha = new Date();
+		
+		String strDateFormat = "hh: mm: ss a dd-MMM-aaaa";
+        SimpleDateFormat formaDate = new SimpleDateFormat(strDateFormat);
+		
+		Random ran = new Random();
+		doc.append("id", String.valueOf(ran.nextInt(100000000)));
+		doc.append("AmountOutput", "0");
+		doc.append("TotalOutput", "0");
+		doc.append("InputAmount", product.getStok().toString());
+		doc.append("BalanceAmoun", "0");
+		doc.append("TotalEntry", resultadoKardex.kardexTotalTicket(product));
+		doc.append("Detail", product.getDetail());
+		doc.append("Value", product.getPrice());
+		doc.append("TotalBalance", "0");
+		doc.append("Date",  formaDate.format(fecha));
+		this.collectionKardex.insertOne(doc);
+			
+	}
 
 	
 	public void createKardex(kardex kardex) {
@@ -290,7 +312,7 @@ public class Service implements Repository {
 		doc.append("TotalOutput", kardex.getTotalOutput());
 		doc.append("InputAmount", kardex.getInputAmount());
 		doc.append("BalanceAmoun", kardex.getBalanceAmount());
-		doc.append("TotalEntry", resultOperactionService.kardexTotalTicket(kardex));
+		doc.append("TotalEntry", "0");
 		doc.append("Detail", kardex.getDetail());
 		doc.append("Value", kardex.getValue());
 		doc.append("TotalBalance", kardex.getTotalBalance());
@@ -298,8 +320,5 @@ public class Service implements Repository {
 		Document result = this.collectionKardex.findOneAndUpdate(eq("Detail", Detail), new Document("$set", doc));
 		return result;
 	}
-
-
-	
 	
 }

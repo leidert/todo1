@@ -5,10 +5,10 @@ import co.com.sofka.kardexTodoUno.domain.kardex;
 
 public class ResultOperactionService {
 	
-	public String kardexTotalTicket(kardex kardex) {
+	public String kardexTotalTicket(Product product) {
 		
-		int Value = Integer.parseInt(kardex.getValue());
-		int TotalEntry = Integer.parseInt(kardex.getInputAmount());
+		int Value = Integer.parseInt(product.getPrice());
+		int TotalEntry = Integer.parseInt(product.getStok());
 		String result = String.valueOf(Value*TotalEntry);
 		return result;
 	}
